@@ -40,7 +40,9 @@ INSTALLED_APPS = (
     #http://south.readthedocs.org/en/latest/tutorial/part1.html#the-first-migration
     'south',
     #custom users
-    'users'
+    'users',
+    #'register',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (

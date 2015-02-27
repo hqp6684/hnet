@@ -39,8 +39,10 @@ INSTALLED_APPS = (
     #for database migration, need south installed
     #http://south.readthedocs.org/en/latest/tutorial/part1.html#the-first-migration
     'south',
-    #custom users
+    #define users into different groups
     'users'
+    #registration, to create new user object
+    'registration'
 )
 
 MIDDLEWARE_CLASSES = (

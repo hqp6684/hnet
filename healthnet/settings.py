@@ -36,6 +36,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #for database migration, need south installed
+    #http://south.readthedocs.org/en/latest/tutorial/part1.html#the-first-migration
+    'south',
+    #custom users
+    'users'
 )
 
 MIDDLEWARE_CLASSES = (

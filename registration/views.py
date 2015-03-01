@@ -8,5 +8,5 @@ def register(request, template_name='registration/registration_form.html'):
 	form = UserCreationForm(request.POST)
 	if form.is_valid():
 		form.save()
-		return redirect('healthnet')
+		return redirect('/')
 	return render(request, template_name, {'form':form})

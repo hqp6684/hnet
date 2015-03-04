@@ -13,6 +13,9 @@ class UserProfile(models.Model):
 	state = models.CharField(max_length=2)
 	zipcode = models.CharField(max_length=5)
 
+	def __str__(self):
+		return self.phoneNumber
+
 class Employee(models.Model):
 	user = models.OneToOneField(User)
 	department = models.CharField(max_length=100)

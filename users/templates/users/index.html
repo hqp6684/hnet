@@ -7,7 +7,9 @@
   <tr>
     <td>{{ user.username }}</td>
     {% if user.employee %}
-   	<td>Is an employee</td>
+   	<td>employee {{user.employee.doctor}}</td>
+   	{%elif user.patient%}
+   	<td>is patient</td>
    	{%endif%}
 
   {% endfor %}

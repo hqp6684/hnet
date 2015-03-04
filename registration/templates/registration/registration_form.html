@@ -1,50 +1,8 @@
-<html>
-<head>
-<style>
-    label.box_label{width:20em; display: block; /*vertical-align: top; float:left; text-align: left; /*display: inline-block; border:1px solid black;*/}
-    label.box{float:right; display: inline;/*float:right; vertical-align: top;*/}
-    /*label{display:inline-block; float:left; border: 1px solid red;}*/
-</style>
-</head>
-
-<body>
-<form action="/registration/" method="post">
-    <h1 style="text-align: left">Register for an Account</h1>
-    <div>
-        {{ form.username.error_messages }}
-        <label class="box_label">
-            Username:
-            <label class="box">{{ form.username }}<span style="color: red">*</span></label>
-        </label>
-        <br />
-        {{ form.username.help_text }}
-    </div>
-    <div>
-        <br />
-        <br />
-        <label class="box_label">
-            Password:
-            <label class="box">{{ form.password1}}<span style="color: red">*</span></label>
-        </label>
-    </div>
-    <div>
-        <br />
-        <label class="box_label">
-            Confirm Password:
-            <label class="box">{{ form.password2}}<span style="color: red">*</span></label>
-        </label>
-        <br />
-        {{ form.password2.help_text }}
-    </div>
-    <div>
-        <br />
-        <br />
-        <button type="submit" class="btn btn-primary btn-block">Create The Account</button>
-    </div>
-    <div>
-        <br />
-        <label style="font-style: italic; color:gray">A <span style="color:red">*</span> means the field is necessary.</label>
-    </div>
-</form>
-</body>
-</html>
+<form action="/registration/" id="register" class="container " style="max-width: 350px; border-radius: 8px; background-color: #FFFFFF" method="post">{% csrf_token %}
+	<h1 style="text-align: center">Register for an Account</h1>
+		<div class="form-group container">
+				
+				{{form.as_p}}
+ 			<button type="submit" class="btn btn-primary btn-block">Create The Account</button>
+		</div><br>
+	</form>

@@ -15,6 +15,10 @@ class UserProfile(models.Model):
 
 	def __str__(self):
 		return self.phoneNumber
+	@classmethod
+	def create(cls, username):
+		userprofile = cls(user=username)
+		return userprofile
 
 class Employee(models.Model):
 	user = models.OneToOneField(User)
@@ -36,5 +40,8 @@ class Nurse(models.Model):
 
 class Patient(models.Model):
 	user = models.OneToOneField(User)
+
+	def __str__(self):
+		return self.user.username
 
 

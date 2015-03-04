@@ -25,6 +25,9 @@ class Doctor(models.Model):
 	user = models.OneToOneField(Employee)
 	specialty = models.CharField(max_length=100)
 
+	def __str__(self):
+		return self.specialty
+
 class Nurse(models.Model):
 	user = models.OneToOneField(Employee)
 

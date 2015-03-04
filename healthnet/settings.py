@@ -12,6 +12,23 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+##==============
+#to load template folder in project
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR ,'templates').replace('\\','/'),
+)
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+##==============
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -39,10 +56,12 @@ INSTALLED_APPS = (
     #for database migration, need south installed
     #http://south.readthedocs.org/en/latest/tutorial/part1.html#the-first-migration
     'south',
-    #define users into different groups
-    'users'
-    #registration, to create new user object
-    'registration'
+    #custom users
+    'users',
+    #'register',
+    'registration',
+    'login',
+
 )
 
 MIDDLEWARE_CLASSES = (

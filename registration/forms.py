@@ -25,11 +25,10 @@ from django.contrib.sites.models import get_current_site
 #
 from django import forms
 from django.contrib.auth.models import User
+from users.models import UserProfile
+
 import datetime
 
-class RegistrationForm(forms.ModelForm):
-	class Meta:
-		model = User
 
 class UserCreationForm(forms.ModelForm):
 
@@ -51,10 +50,6 @@ class UserCreationForm(forms.ModelForm):
             'invalid': _("This value may contain only letters, numbers and "
                          "@/./+/-/_ characters.")},
         widget=forms.TextInput(attrs={'class':'form-control'}),
-
-
-
-
 
         )
 
@@ -96,5 +91,7 @@ class UserCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
+            userprofile = UserProfile.create(user)
+            userprofile.save()
         return user
 

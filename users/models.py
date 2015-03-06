@@ -1,23 +1,24 @@
 from django.db import models
-
+import datetime
 #Django User
 from django.contrib.auth.models import User
 
+
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
-	dOB = models.DateField()
-	sSN = models.CharField(max_length=11)
-	phoneNumber = models.CharField(max_length=10)
-	streetAddress = models.CharField(max_length=100)
-	city = models.CharField(max_length=40)
-	state = models.CharField(max_length=2)
-	zipcode = models.CharField(max_length=5)
+	dOB = models.DateField(null=True)
+	sSN = models.CharField(max_length=11,default='000-00-0000',null=True)
+	phoneNumber = models.CharField(max_length=15,default='xxx-xxx-xxxx',null=True)
+	streetAddress = models.CharField(max_length=100,null=True)
+	city = models.CharField(max_length=30,null=True)
+	state = models.CharField(max_length=2,null=True)
+	zipcode = models.CharField(max_length=5,default='xxxxx',null=True)
 
 	def __str__(self):
-		return self.phoneNumber
+		return self.user.username
 	@classmethod
-	def create(cls, username):
-		userprofile = cls(user=username)
+	def create(u, username):
+		userprofile = u(user=username)
 		return userprofile
 
 class Employee(models.Model):

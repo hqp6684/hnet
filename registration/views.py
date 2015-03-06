@@ -6,8 +6,14 @@ from registration.forms import UserCreationForm
 # Create your views here.
 
 def register(request, template_name='registration/registration_form.html'):
-	form = UserCreationForm(request.POST)
-	if form.is_valid():
-		form.save()
-		return redirect('/')
-	return render(request, template_name, {'form':form})
+	args = {}
+	
+	if request.method =='POST':
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('/')
+	else:
+		form = UserCreationForm()
+	args['form'] = form
+	return render(request, template_name, args)

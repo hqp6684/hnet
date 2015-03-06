@@ -8,25 +8,51 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Nurse'
-        db.create_table(u'users_nurse', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['users.Employee'], unique=True)),
-        ))
-        db.send_create_signal(u'users', ['Nurse'])
 
-        # Adding field 'Employee.dateJoin'
-        db.add_column(u'users_employee', 'dateJoin',
-                      self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2015, 2, 27, 0, 0)),
+        # Changing field 'UserProfile.city'
+        db.alter_column(u'users_userprofile', 'city', self.gf('django.db.models.fields.CharField')(default='', max_length=30))
+
+        # Changing field 'UserProfile.zipcode'
+        db.alter_column(u'users_userprofile', 'zipcode', self.gf('django.db.models.fields.CharField')(max_length=5))
+
+        # Changing field 'UserProfile.streetAddress'
+        db.alter_column(u'users_userprofile', 'streetAddress', self.gf('django.db.models.fields.CharField')(default='', max_length=100))
+
+        # Changing field 'UserProfile.state'
+        db.alter_column(u'users_userprofile', 'state', self.gf('django.db.models.fields.CharField')(default='', max_length=2))
+
+        # Changing field 'UserProfile.sSN'
+        db.alter_column(u'users_userprofile', 'sSN', self.gf('django.db.models.fields.CharField')(max_length=11))
+
+        # Changing field 'UserProfile.email'
+        db.alter_column(u'users_userprofile', 'email', self.gf('django.db.models.fields.EmailField')(default='', max_length=75))
+        # Adding field 'Doctor.office'
+        db.add_column(u'users_doctor', 'office',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=50, blank=True),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Nurse'
-        db.delete_table(u'users_nurse')
 
-        # Deleting field 'Employee.dateJoin'
-        db.delete_column(u'users_employee', 'dateJoin')
+        # Changing field 'UserProfile.city'
+        db.alter_column(u'users_userprofile', 'city', self.gf('django.db.models.fields.CharField')(max_length=30, null=True))
+
+        # Changing field 'UserProfile.zipcode'
+        db.alter_column(u'users_userprofile', 'zipcode', self.gf('django.db.models.fields.CharField')(max_length=5, null=True))
+
+        # Changing field 'UserProfile.streetAddress'
+        db.alter_column(u'users_userprofile', 'streetAddress', self.gf('django.db.models.fields.CharField')(max_length=100, null=True))
+
+        # Changing field 'UserProfile.state'
+        db.alter_column(u'users_userprofile', 'state', self.gf('django.db.models.fields.CharField')(max_length=2, null=True))
+
+        # Changing field 'UserProfile.sSN'
+        db.alter_column(u'users_userprofile', 'sSN', self.gf('django.db.models.fields.CharField')(max_length=11, null=True))
+
+        # Changing field 'UserProfile.email'
+        db.alter_column(u'users_userprofile', 'email', self.gf('django.db.models.fields.EmailField')(max_length=75, null=True))
+        # Deleting field 'Doctor.office'
+        db.delete_column(u'users_doctor', 'office')
 
 
     models = {
@@ -69,13 +95,12 @@ class Migration(SchemaMigration):
         u'users.doctor': {
             'Meta': {'object_name': 'Doctor'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'office': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'specialty': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['users.Employee']", 'unique': 'True'})
         },
         u'users.employee': {
             'Meta': {'object_name': 'Employee'},
-            'dOB': ('django.db.models.fields.DateField', [], {}),
-            'dateJoin': ('django.db.models.fields.DateField', [], {}),
             'department': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'location': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
@@ -85,6 +110,24 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Nurse'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['users.Employee']", 'unique': 'True'})
+        },
+        u'users.patient': {
+            'Meta': {'object_name': 'Patient'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
+        },
+        u'users.userprofile': {
+            'Meta': {'object_name': 'UserProfile'},
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
+            'dOB': ('django.db.models.fields.DateField', [], {'null': 'True'}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'phoneNumber': ('django.db.models.fields.CharField', [], {'default': "'xxx-xxx-xxxx'", 'max_length': '15', 'null': 'True'}),
+            'sSN': ('django.db.models.fields.CharField', [], {'default': "'000-00-0000'", 'max_length': '11', 'blank': 'True'}),
+            'state': ('django.db.models.fields.CharField', [], {'max_length': '2', 'blank': 'True'}),
+            'streetAddress': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'}),
+            'zipcode': ('django.db.models.fields.CharField', [], {'default': "'xxxxx'", 'max_length': '5', 'blank': 'True'})
         }
     }
 

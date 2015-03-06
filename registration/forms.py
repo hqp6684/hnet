@@ -25,13 +25,15 @@ from django.contrib.sites.models import get_current_site
 #
 from django import forms
 from django.contrib.auth.models import User
+from users.models import UserProfile
+
 import datetime
 
-class RegistrationForm(forms.ModelForm):
-	class Meta:
-		model = User
 
 class UserCreationForm(forms.ModelForm):
+
+    error_css_class = 'alert alert-danger'
+
     """
     A form that creates a user, with no privileges, from the given username and
     password.
@@ -46,11 +48,15 @@ class UserCreationForm(forms.ModelForm):
                       "@/./+/-/_ only."),
         error_messages={
             'invalid': _("This value may contain only letters, numbers and "
-                         "@/./+/-/_ characters.")})
+                         "@/./+/-/_ characters.")},
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+
+        )
+
     password1 = forms.CharField(label=_("Password"),
-        widget=forms.PasswordInput)
+        widget=forms.PasswordInput(attrs={'class':'form-control'}))
     password2 = forms.CharField(label=_("Password confirmation"),
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'class':'form-control'}),
         help_text=_("Enter the same password as above, for verification."))
 
     class Meta:
@@ -85,5 +91,7 @@ class UserCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
+            userprofile = UserProfile.create(user)
+            userprofile.save()
         return user
 

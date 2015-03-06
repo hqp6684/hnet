@@ -1,7 +1,49 @@
-<form action="/registration/" id="register" class="container " style="max-width: 350px; border-radius: 8px; background-color: #FFFFFF" method="post">{% csrf_token %}
+{%extends 'base.html' %}
+{%block content%}
+
+<div>
+
+<form action="/registration/" id="register" method="post">
+{% csrf_token %}
+<div class="form-group">
 	<h1 style="text-align: center">Register for an Account</h1>
-		<div class="form-group container">
-				{{form.as_p}}
- 			<button type="submit" class="btn btn-primary btn-block">Create The Account</button>
-		</div><br>
+    {{ form.non_field_errors }}
+
+  <div class="form-group">
+  {% if form.username.errors %}
+  <div class="alert alert-danger" role="alert">
+
+    <ol>
+    {% for error in form.username.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ol>
+  </div>
+
+{% endif %}
+     <label for="username">Username</label>
+    {{form.username}}
+    <span id="helpBlock" class="help-block">{{form.username.help_text}}</span>
+  </div>
+
+
+  <div class="form-group">
+    <label for="password1">Password</label>
+    {{form.password1}}  
+  </div>
+
+  <div class="form-group">
+    <label for="password1">Password</label>
+    {{form.password2}} 
+     <span id="helpBlock" class="help-block">{{form.password2.help_text}}</span>
+
+  </div>
+
+ <button type="submit" class="btn btn-default">Submit</button>
+
+
+
 	</form>
+
+</div>
+{%endblock%}

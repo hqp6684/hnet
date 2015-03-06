@@ -8,6 +8,21 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'UserProfile'
+        db.create_table(u'users_userprofile', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
+            ('dOB', self.gf('django.db.models.fields.DateField')(null=True)),
+            ('sSN', self.gf('django.db.models.fields.CharField')(default='000-00-0000', max_length=11, null=True)),
+            ('phoneNumber', self.gf('django.db.models.fields.CharField')(default='xxx-xxx-xxxx', max_length=15, null=True)),
+            ('streetAddress', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
+            ('city', self.gf('django.db.models.fields.CharField')(max_length=30, null=True)),
+            ('state', self.gf('django.db.models.fields.CharField')(max_length=2, null=True)),
+            ('zipcode', self.gf('django.db.models.fields.CharField')(default='xxxxx', max_length=5, null=True)),
+            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75, null=True)),
+        ))
+        db.send_create_signal(u'users', ['UserProfile'])
+
         # Adding model 'Employee'
         db.create_table(u'users_employee', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -25,13 +40,36 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'users', ['Doctor'])
 
+        # Adding model 'Nurse'
+        db.create_table(u'users_nurse', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['users.Employee'], unique=True)),
+        ))
+        db.send_create_signal(u'users', ['Nurse'])
+
+        # Adding model 'Patient'
+        db.create_table(u'users_patient', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
+        ))
+        db.send_create_signal(u'users', ['Patient'])
+
 
     def backwards(self, orm):
+        # Deleting model 'UserProfile'
+        db.delete_table(u'users_userprofile')
+
         # Deleting model 'Employee'
         db.delete_table(u'users_employee')
 
         # Deleting model 'Doctor'
         db.delete_table(u'users_doctor')
+
+        # Deleting model 'Nurse'
+        db.delete_table(u'users_nurse')
+
+        # Deleting model 'Patient'
+        db.delete_table(u'users_patient')
 
 
     models = {
@@ -83,6 +121,29 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'location': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
+        },
+        u'users.nurse': {
+            'Meta': {'object_name': 'Nurse'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['users.Employee']", 'unique': 'True'})
+        },
+        u'users.patient': {
+            'Meta': {'object_name': 'Patient'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
+        },
+        u'users.userprofile': {
+            'Meta': {'object_name': 'UserProfile'},
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True'}),
+            'dOB': ('django.db.models.fields.DateField', [], {'null': 'True'}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'null': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'phoneNumber': ('django.db.models.fields.CharField', [], {'default': "'xxx-xxx-xxxx'", 'max_length': '15', 'null': 'True'}),
+            'sSN': ('django.db.models.fields.CharField', [], {'default': "'000-00-0000'", 'max_length': '11', 'null': 'True'}),
+            'state': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True'}),
+            'streetAddress': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'}),
+            'zipcode': ('django.db.models.fields.CharField', [], {'default': "'xxxxx'", 'max_length': '5', 'null': 'True'})
         }
     }
 

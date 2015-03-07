@@ -52,7 +52,7 @@ class loginForm(forms.Form):
         user = authenticate(username=username, password=password)
         return user
 
-'''
+
 class AuthenticationForm(forms.Form):
     """
     Base class for authenticating users. Extend this to get a form that accepts
@@ -113,4 +113,4 @@ class AuthenticationForm(forms.Form):
 
     def get_user(self):
         return self.user_cache
-'''
+

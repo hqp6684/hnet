@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>Healtnet Template</title>
 
     <!-- Bootstrap -->
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
@@ -20,10 +20,20 @@
   <body>
 <ul class="nav nav-tabs">
   <li role="presentation" class="active"><a href="/">Home</a></li>
-  <li role="presentation"><a href="/registration">Registration</a></li>
+  {% if user.is_authenticated %}
+  <li role="presentation"><a href="/login/logout">Logout</a></li>
+  {% if user.is_staff%}
   <li role="presentation"><a href="/admin">Admin</a></li>
   <li role="presentation"><a href="/users">Users</a></li>
-</ul></ul><h1>Welcome to HealthNet</h1>
+  {%endif%}
+  {%  else %}
+  <li role="presentation"><a href="/login">Login</a></li>
+  <li role="presentation"><a href="/registration">Registration</a></li>
+
+  {%endif%}
+
+</ul>
+
 
     {% block content %}
     {% endblock %}

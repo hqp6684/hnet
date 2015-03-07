@@ -35,6 +35,10 @@ class Doctor(models.Model):
 	#doctor = models.ForeignKey('Employee', verbose_name='username')
 	specialty = models.CharField(max_length=100)
 	office = models.CharField(max_length=50, blank=True)
+	'''
+	patient  oneToMany Patient
+	
+	'''
 
 	def __str__(self):
 		return self.specialty

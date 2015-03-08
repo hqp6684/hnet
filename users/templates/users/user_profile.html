@@ -1,0 +1,14 @@
+{%extends "base.html" %}
+{%block content%}
+
+Username:
+{{userprofile.user.username}}
+<br>
+DOB:
+{{userprofile.dOB}}
+<br>
+{{userprofile.sSN}}
+<br>
+<a href="{{ userprofile.get_absolute_url }}update">Edit</a>
+
+{%endblock%}

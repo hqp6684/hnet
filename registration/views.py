@@ -12,7 +12,7 @@ def register(request, template_name='registration/registration_form.html'):
 		form = UserCreationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect('/')
+			return redirect('/login')
 	else:
 		form = UserCreationForm()
 	args['form'] = form

@@ -25,7 +25,7 @@ from django.contrib.sites.models import get_current_site
 #
 from django import forms
 from django.contrib.auth.models import User
-from users.models import UserProfile
+from users.models import UserProfile, Patient
 
 import datetime
 
@@ -91,7 +91,11 @@ class UserCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
+
             userprofile = UserProfile.create(user)
             userprofile.save()
+
+            patient = Patient.create(user)
+            patient.save()
         return user
 

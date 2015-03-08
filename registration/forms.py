@@ -26,6 +26,7 @@ from django.contrib.sites.models import get_current_site
 from django import forms
 from django.contrib.auth.models import User
 from users.models import UserProfile, Patient
+from medicalinfo.models import Medicalinfo
 
 import datetime
 
@@ -97,5 +98,8 @@ class UserCreationForm(forms.ModelForm):
 
             patient = Patient.create(user)
             patient.save()
+
+            medicalinfo = Medicalinfo.create(patient)
+            medicalinfo.save()
         return user
 

@@ -1,5 +1,5 @@
 from django import forms
-from models import UserProfile
+from users.models import UserProfile
 
 from django.utils.translation import ugettext, ugettext_lazy as _
 

@@ -8,7 +8,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic import UpdateView
 from django.core.urlresolvers import reverse
-from models import Medicalinfo
+from medicalinfo.models import Medicalinfo
 # Create your views here.
 def index(request):
 	medicalinfo = Medicalinfo.objects.all()

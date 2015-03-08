@@ -87,7 +87,7 @@ class UserCreationForm(forms.ModelForm):
                 code='password_mismatch',
             )
         return password2
-'''
+
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
@@ -103,7 +103,7 @@ class UserCreationForm(forms.ModelForm):
             medicalinfo = Medicalinfo.create(patient)
             medicalinfo.save()
         return user
-'''
+
 
 class EmployeeCreationForm(forms.ModelForm):
 
@@ -128,8 +128,8 @@ class EmployeeCreationForm(forms.ModelForm):
 
         )
 
-    EMPLOYEE_CHOICES =[('d','Doctor'),('n','Nurse'),]
-    employeechoice = forms.MultipleChoiceField(label=_("Employee"), choices=EMPLOYEE_CHOICES, widget=forms.RadioSelect)
+    #EMPLOYEE_CHOICES =[('d','Doctor'),('n','Nurse'),]
+    #employeechoice = forms.MultipleChoiceField(label=_("Employee"), choices=EMPLOYEE_CHOICES, widget=forms.RadioSelect)
 
 
     password1 = forms.CharField(label=_("Password"),

@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     #'register',
     'registration',
     'login',
+    'medicalinfo',
 
 )
 

@@ -11,4 +11,6 @@ DOB:
 <br>
 <a href="{{ userprofile.get_absolute_url }}update">Edit</a>
 
+<a href="{{ userprofile.user.patient.medicalinfo.get_absolute_url }}">My medicalinfo</a>
+
 {%endblock%}

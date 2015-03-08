@@ -33,16 +33,21 @@ class UserProfile(models.Model):
 
 class Employee(models.Model):
 	user = models.OneToOneField(User,primary_key=True)
-	department = models.CharField(max_length=100)
-	location = models.CharField(max_length=100)
+	department = models.CharField(max_length=100, blank=True)
+	location = models.CharField(max_length=100, blank=True)
 
 	def __str__(self):
 		return self.user.username
 
+	@classmethod
+	def create(e, username):
+		employee = e(user=username)
+		return employee
+
 class Doctor(models.Model):
 	user = models.OneToOneField(Employee,primary_key=True)
 	#doctor = models.ForeignKey('Employee', verbose_name='username')
-	specialty = models.CharField(max_length=100)
+	specialty = models.CharField(max_length=100, blank=True)
 	office = models.CharField(max_length=50, blank=True)
 	'''
 	patient  oneToMany Patient
@@ -51,6 +56,11 @@ class Doctor(models.Model):
 
 	def __str__(self):
 		return self.specialty
+	@classmethod
+	def create(d, username):
+		doctor = d(user=username)
+		return doctor
+
 
 class Nurse(models.Model,):
 	user = models.OneToOneField(Employee,primary_key=True)
